@@ -1,0 +1,23 @@
+{
+  "name": "scorecard",
+  "version": "1.0.0",
+  "description": "TFG project",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agcrs/scorecard.git"
+  },
+  "author": "Adrián González Castro, Susana Marín Martín",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/agcrs/scorecard/issues"
+  },
+  "homepage": "https://github.com/agcrs/scorecard#readme",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "mongoose": "^4.4.5",
+    "morgan": "^1.7.0"
+  }
+}
