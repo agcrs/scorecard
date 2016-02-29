@@ -1,2 +1,2 @@
 # scorecard
-Scorecard is a webapp that allows the user to track their data across diferent web services.
+Scorecard is a webapp that allows its users to track their data across diferent web services.
