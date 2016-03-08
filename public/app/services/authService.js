@@ -75,6 +75,10 @@ angular.module('authService', [])
         }
 	};
 
+    authFactory.redirectAuthGoogle = function() {
+        return $http.get('/auth/google');
+    };
+
     return authFactory;
 })
 

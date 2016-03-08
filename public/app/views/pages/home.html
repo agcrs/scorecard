@@ -9,6 +9,9 @@
 		<a href="/register" class="btn btn-default">Register</a>
 		<a href="/auth/google" class="btn btn-danger"><span class="fa fa-google"></span> Google</a>
 		<p>You can access the application by signing up or using your google account!</p>
+		<p>
+			{{auth.message}}
+		</p>
 	</div>
 
 	<div ng-if="main.loggedIn">

@@ -3,6 +3,7 @@ angular.module('scorecardApp', [
     'app.routes',       //The routing of the application
     'authService',      //Service to manage authorization
     'mainController',   //Controller for the main view
+    'authController'   //Controller for the redirection to googleAuth
 ])
 
 //application configuration to integrate token into requests

@@ -6,6 +6,12 @@ angular.module('app.routes', ['ngRoute'])
 
         .when('/', {    //Home page route
             templateUrl : 'app/views/pages/home.html'
+        })
+
+        .when('/auth/google', {
+            templateUrl: 'app/views/pages/home.html',
+            controller: 'authController',
+            controllerAs: 'auth'
         });
 
         //get rid of the hash in the url
