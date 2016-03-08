@@ -1,13 +1,18 @@
 <div class="jumbotron text-center">
+
 	<h1>Welcome to Scorecard!</h1>
+	<img src="/assets/img/logo.png" class="img-rounded" alt="Scorecard" width="256" height="256">
 
 	<div ng-if="!main.loggedIn">
-		<p>Login to see manage your dashboard.</p>
-		<a href="/login" class="btn btn-primary">Login</a>
+		<p>Login or register with:</p>
+		<a href="/login" class="btn btn-default">Login</a>
+		<a href="/register" class="btn btn-default">Register</a>
+		<a href="/auth/google" class="btn btn-danger"><span class="fa fa-google-plus"></span> Google</a>
+		<p>You can access the application by signing up or using your google account!</p>
 	</div>
 
 	<div ng-if="main.loggedIn">
 		<p>Manage your users.</p>
-		<a href="/users" class="btn btn-primary">View Users</a>
+		<a href="/users" class="btn btn-default">View Users</a>
 	</div>
 </div>
