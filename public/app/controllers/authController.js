@@ -9,7 +9,7 @@ angular.module('authController', ['authService'])
     var vm = this;  //Set up the view-model
 
     Auth.redirectAuthGoogle()
-        .success(function(data) {
-            window.location.replace(data.googleAuthUrl);
+        .success(function(googleAuthUrl) {
+            window.location.replace(googleAuthUrl);
         });
 });

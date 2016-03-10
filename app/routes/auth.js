@@ -1,65 +1,193 @@
-var express = require('express');
-var config = require('../../config');
+//-------------------------------------//
+//Routes needed by the authentication
+//services used by the app.
+//-------------------------------------//
 
-var google = require('googleapis');
-var googleAuth = require('google-auth-library');
+//Needed packages
+var express = require('express'),
+    config = require('../../config'),
+    User = require('../models/user'),
+    jwt = require('jsonwebtoken'),
 
+    google = require('googleapis'),
+    googleAuth = require('google-auth-library');
+
+//Secret for the webtoken
 var secret = config.secret;
 
 var authRouter = express.Router();
 
-var SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly'];
-var clientId = config.googleAuth.clientID;
-var clientSecret = config.googleAuth.clientSecret;
-var redirectUrl = config.googleAuth.callbackURL;
-var auth = new googleAuth();
-var oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
+//Google authentication info
+var SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly',
+        'https://www.googleapis.com/auth/userinfo.email'
+    ],
+    clientId = config.googleAuth.clientID,
+    clientSecret = config.googleAuth.clientSecret,
+    redirectUrl = config.googleAuth.callbackURL,
+    auth = new googleAuth(),
+    oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
 
-authRouter.get('/google', function(req, res)  {
+//-----------------ROUTES----------------//
+
+
+//Generates the auth url and return it.
+authRouter.get('/google', function(req, res) {
 
     var authUrl = oauth2Client.generateAuthUrl({
         access_type: 'offline',
         scope: SCOPES
     });
 
-    res.json({ googleAuthUrl: authUrl });
+    res.json(authUrl);
 });
 
-authRouter.get('/google/callback:code', function(req, res)  {
-    console.log(req.params);
+//Receives the google services callback, save the authorization data and
+//authenticates the user.
+authRouter.get('/google/callbacku', function(req, res) {
+    oauth2Client.getToken(req.query.code, function(err, token) {
+        if (err) {
+            return res.json({
+                success: false,
+                message: 'Problem with Google authorization token' + err
+            });
+        } else {
+            oauth2Client.setCredentials(token);
 
-    oauth2Client.getToken(req.params.code, function(err, token)    {
-        if(!err){
+            var drive = google.drive('v3'); //Obtain Google user info
+            drive.about.get({
+                auth: oauth2Client,
+                fields: "user"
+            }, function(err, response) {
+                if (err) {
+                    return res.json({
+                        success: false,
+                        message: 'The drive api returned an error:' + err
+                    });
+                } else {
+                    //View if this user exists on the database
+                    User.findOne({
+                        'google.id': response.user.permissionId
+                    }).exec(function(err, user) {
+                        if (err) {
+                            return res.json({
+                                success: false,
+                                message: 'The db returned an error: '+ err
+                            });
+                        } else {
+                            if (user) {
+
+                            } else { //Save user
+                                var newUser = new User();
+
+                                newUser.google.id = response.user.permissionId;
+                                newUser.google.email = response.user.emailAddress;
+                                newUser.google.name = response.user.displayName;
+                                newUser.google.token = token;
+
+                                newUser.save(function(err) {
+                                    if (err) {
+                                        return res.json({
+                                            success: false,
+                                            message: 'Error savin user:' + err
+                                        });
+                                    } else {
+                                        
+                                    }
+                                });
+                            }
+                        }
+                    });
+
+                }
+
+                res.json(response.user);
+            });
+        }
+    });
+});
+
+authRouter.get('/google/items', function(req, res) {
+    oauth2Client.getToken(req.query.code, function(err, token) {
+        if (!err) {
             oauth2Client.setCredentials(token);
 
             //Deberiamos guardarlo en la base de datos
+
+            var drive = google.drive('v3');
+            drive.files.list({
+                auth: oauth2Client,
+                pageSize: 30,
+                fields: "nextPageToken, files(id, name, mimeType, createdTime)"
+            }, function(err, response) {
+                if (err) {
+                    console.log('The API returned an error: ' + err);
+                    return;
+                }
+
+                res.json(response.files);
+            });
         }
     });
+});
 
-    var service = google.drive('v3');
-    service.files.list({
-      auth: oauth2Client,
-      pageSize: 10,
-      fields: "nextPageToken, files(id, name)"
-    }, function(err, response) {
-      if (err) {
-        console.log('The API returned an error: ' + err);
-        return;
-      }
-      var files = response.files;
-      if (files.length === 0) {
-        console.log('No files found.');
-      } else {
-        console.log('Files:');
-        for (var i = 0; i < files.length; i++) {
-          var file = files[i];
-          console.log('%s (%s)', file.name, file.id);
+authRouter.get('/google/changes', function(req, res) {
+    oauth2Client.getToken(req.query.code, function(err, token) {
+        if (!err) {
+            oauth2Client.setCredentials(token);
+
+
+            var drive = google.drive('v3');
+            var pageToken = null;
+
+            drive.changes.getStartPageToken({
+                auth: oauth2Client,
+
+            }, function(err, response) {
+                pageToken = response.startPageToken;
+
+                drive.changes.list({
+                    auth: oauth2Client,
+                    pageSize: 1000,
+                    pageToken: pageToken,
+                    fields: "nextPageToken, changes(fileId, time, file)"
+                }, function(err, response) {
+                    if (err) {
+                        console.log('The API returned an error: ' + err);
+                        return;
+                    }
+                    console.log('RESPONSE:');
+                    console.log(response);
+
+                    res.json(response.changes);
+                });
+
+            });
+
         }
-      }
-
-      res.json({data: files});
     });
+});
 
+authRouter.get('/google/user', function(req, res) {
+    oauth2Client.getToken(req.query.code, function(err, token) {
+        if (!err) {
+            oauth2Client.setCredentials(token);
+
+            //Deberiamos guardarlo en la base de datos
+
+            var drive = google.drive('v3');
+            drive.about.get({
+                auth: oauth2Client,
+                fields: "user"
+            }, function(err, response) {
+                if (err) {
+                    console.log('The API returned an error: ' + err);
+                    return;
+                }
+
+                res.json(response.user);
+            });
+        }
+    });
 });
 
 

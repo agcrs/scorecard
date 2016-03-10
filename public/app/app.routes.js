@@ -12,6 +12,12 @@ angular.module('app.routes', ['ngRoute'])
             templateUrl: 'app/views/pages/home.html',
             controller: 'authController',
             controllerAs: 'auth'
+        })
+
+        .when('/auth/google/callback', {
+            templateUrl: 'app/views/pages/dashboard/drive.html',
+            controller: 'driveController',
+            controllerAs: 'drive'
         });
 
         //get rid of the hash in the url
