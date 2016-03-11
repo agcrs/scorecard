@@ -18,6 +18,12 @@ angular.module('app.routes', ['ngRoute'])
             templateUrl: 'app/views/pages/dashboard/drive.html',
             controller: 'driveController',
             controllerAs: 'drive'
+        })
+
+        .when('/api/drive/fileTypes', {
+            templateUrl: 'app/views/pages/dashboard/drive.html',
+            controller: 'driveController',
+            controllerAs: 'drive'
         });
 
         //get rid of the hash in the url

@@ -13,7 +13,8 @@ var path = require('path');
 
 //Routes
 var authRouter = require('./app/routes/auth');
-var routes = require('./app/routes/routes');
+//var routes = require('./app/routes/routes');
+var apiRouter = require('./app/routes/api');
 
 var app = express();  //Define the app using express
 
@@ -43,7 +44,8 @@ app.use(express.static(__dirname + '/public'));
 
 //ROUTES
 // ==================================================================
-app.use('/api', routes);
+//app.use('/api', routes);
+app.use('/api', apiRouter);
 app.use('/auth', authRouter);
 
 //Catchall route to send users to the frontend
