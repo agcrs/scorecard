@@ -29,6 +29,78 @@ var SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly',
 
 //-----------------ROUTES----------------//
 
+//----------Local Auth routes------------//
+
+//Authentication route
+authRouter.post('/authenticate', function(req, res)  {
+
+    //find the user
+    User.findOne({
+        'local.email': req.body.email
+    }).exec(function(err, user) {
+        if (err) throw err;
+
+        //if no user found
+        if(!user){
+            res.json({
+                success: false,
+                message: 'Authentication failed. User not found.'
+            });
+        } else if(user){
+            //check if password matches
+            var validPassword = user.comparePassword(req.body.password);
+            if(!validPassword){
+                res.json({
+                    success: false,
+                    message: 'Authentication failed. Wrong password.'
+                });
+            } else {
+                var token = jwt.sign({
+                    email: user.local.email,
+                    googleId: user.google.id,
+                }, secret, {
+                    expiresIn: 86400 //24 hours
+                });
+
+                res.json({
+                    success: true,
+                    message: 'Enjoy your token',
+                    token: token
+                });
+            }
+        }
+    });
+});
+
+//Save user in the db
+authRouter.post('/registerUser', function(req, res)    {
+    //Create instance of user model.
+    var user = new User();
+
+    //set the atributes of user from the requests
+    user.local.email = req.body.email;
+    user.local.password = req.body.password;
+
+    //save the user
+    user.save(function(err) {
+
+        if (err) {
+            //duplicate entry
+            if(err.code == 11000){
+                return res.json({
+                    success: false,
+                    message: 'A user with that username already exists.'});
+            } else {
+                return res.send(err);
+            }
+        }
+
+        res.json({ message: 'User Registered!'});
+    });
+
+});
+
+//----------Google Auth Routes-----------//
 
 //Generates the auth url and return it.
 authRouter.get('/google', function(req, res) {
