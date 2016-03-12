@@ -25,5 +25,8 @@
     "jsonwebtoken": "^5.7.0",
     "mongoose": "^4.4.5",
     "morgan": "^1.7.0"
+  },
+  "devDependencies": {
+    "supertest": "^1.2.0"
   }
 }

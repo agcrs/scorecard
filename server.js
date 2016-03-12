@@ -1,3 +1,4 @@
+function makeServer(){
 //BASE SETUP
 //===================================================================
 
@@ -48,10 +49,14 @@ app.use('/auth', authRouter);
 
 //Catchall route to send users to the frontend
 app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
+    res.status(200).sendFile(path.join(__dirname + '/public/app/views/index.html'));
 });
 
 // START THE SERVER
 // ==================================================================
-app.listen(config.port);
-console.log('Server listening on port: ' + config.port);
+var server = app.listen(config.port, function(){
+  console.log('Server listening on port: ' + config.port);
+});
+return server;
+}
+module.exports = makeServer;
