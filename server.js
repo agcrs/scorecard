@@ -38,7 +38,8 @@ app.use(function(req, res, next)  {
 //Log requests to the console
 app.use(morgan('dev'));
 //Database
-mongoose.connect(config.database);
+//mongoose.connect(config.database);
+
 //Static files location (frontend)
 app.use(express.static(__dirname + '/public'));
 
@@ -48,14 +49,15 @@ app.use('/api', routes);
 app.use('/auth', authRouter);
 
 //Catchall route to send users to the frontend
-app.get('*', function(req, res) {
-    res.status(200).sendFile(path.join(__dirname + '/public/app/views/index.html'));
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
 });
 
 // START THE SERVER
 // ==================================================================
 var server = app.listen(config.port, function(){
   console.log('Server listening on port: ' + config.port);
+
 });
 return server;
 }
