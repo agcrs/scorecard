@@ -103,7 +103,7 @@ angular.module('driveController', ['driveService'])
 
         var options = {
           title: 'File Formats',
-          width: 700,
+          width: 900,
           height: 500,
           chart: { title: 'File formats',
                    subtitle: 'Number of files of each type' },
