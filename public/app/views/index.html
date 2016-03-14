@@ -18,6 +18,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.js"></script>
+
+    <!--Google charts-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {
+            packages: ['corechart', 'bar']
+        });
+
+    </script>
     <!-- Controllers -->
     <script src="app/controllers/mainController.js"></script>
     <script src="app/controllers/authController.js"></script>
@@ -29,14 +38,7 @@
     <script src="app/app.routes.js"></script>
     <script src="app/app.js"></script>
 
-    <!--Google charts-->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-        google.charts.load('current', {
-            packages: ['corechart']
-        });
-        google.charts.setOnLoadCallback(drawChart);
-    </script>
+
 
 </head>
 

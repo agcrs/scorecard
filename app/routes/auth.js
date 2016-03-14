@@ -248,16 +248,33 @@ authRouter.get('/google/user', function(req, res) {
             //Deberiamos guardarlo en la base de datos
 
             var drive = google.drive('v3');
+            var response = {};
             drive.about.get({
                 auth: oauth2Client,
-                fields: "user, storageQuota"
-            }, function(err, response) {
+                fields: "user, storageQuota, importFormats"
+            }, function(err, aboutResponse) {
                 if (err) {
                     console.log('The API returned an error: ' + err);
                     return;
                 }
+                response.aboutInfo = aboutResponse;
 
-                res.json(response);
+                //files
+                drive.files.list({
+                    auth: oauth2Client,
+                    pageSize: 1000,
+                    fields: "files(mimeType)"
+                }, function(err, fileResponse) {
+                    if (err) {
+                        console.log('The API returned an error: ' + err);
+                        return;
+                    }
+
+                    response.fileInfo = fileResponse;
+
+                    res.json(response);
+                });
+                //
             });
         }
     });

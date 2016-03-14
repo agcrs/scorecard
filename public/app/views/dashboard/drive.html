@@ -72,7 +72,7 @@
                         </div>
                     </div>
                     <div class="col-xs-2">
-                        <div id="driveChart">
+                        <div id="storageChart">
                         </div>
                     </div>
                 </div>
@@ -145,6 +145,72 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-show="!drive.processing">
+
+    <!-- GOOGLE INFORMATION -->
+    <div class="col-xs-12">
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <span class="fa fa-google"></span> Google Drive File Info
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <p>
+                            <strong>Total number of files</strong>: {{drive.totalArchives}}
+                            <br>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <h4 class="text-danger">
+                                Storage Info
+                            </h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2">
+
+
+                            <p>
+                                <strong>Google Docs</strong>: {{drive.gDocs}}.
+                                <br>
+                                <strong>Google Drawings</strong>: {{drive.gDrawings}}.
+                                <br>
+                                <strong>Google Forms</strong>: {{drive.gForms}}.
+                                <br>
+                                <strong>Google Maps</strong>: {{drive.gMaps}}.
+                                <br>
+                                <strong>Google Slides</strong>: {{drive.gSlides}}.
+                                <br>
+                                <strong>Google Sheets</strong>: {{drive.gSheets}}.
+                                <br>
+                                <strong>Pdf</strong>: {{drive.pdf}}.
+                                <br>
+                                <strong>Images</strong>: {{drive.img}}.
+                                <br>
+                                <strong>Compressed</strong>: {{drive.zip}}.
+                                <br>
+                                <strong>Various</strong>: {{drive.various}}.
+                                <br>
+                            </p>
+                            </div>
+                            <div class="col-xs-10">
+                                <div id="fileChart">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
