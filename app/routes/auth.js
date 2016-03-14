@@ -178,6 +178,7 @@ authRouter.get('/google/callbacku', function(req, res) {
     });
 });
 
+//Test routes with the first use cases
 authRouter.get('/google/items', function(req, res) {
     oauth2Client.getToken(req.query.code, function(err, token) {
         if (!err) {
@@ -249,14 +250,14 @@ authRouter.get('/google/user', function(req, res) {
             var drive = google.drive('v3');
             drive.about.get({
                 auth: oauth2Client,
-                fields: "user"
+                fields: "user, storageQuota"
             }, function(err, response) {
                 if (err) {
                     console.log('The API returned an error: ' + err);
                     return;
                 }
 
-                res.json(response.user);
+                res.json(response);
             });
         }
     });

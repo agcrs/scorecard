@@ -1,6 +1,6 @@
 <div class="page-header">
     <h1>
-        Google Drive Dashboard
+        Dashboard
     </h1>
 </div>
 
@@ -9,28 +9,142 @@
     <p>Loading Statictics...</p>
 </div>
 
-
 <div class="row" ng-show="!drive.processing">
 
     <!-- GOOGLE INFORMATION -->
-    <div class="col-sm-6">
-        <div class="well">
+    <div class="col-xs-6">
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <span class="fa fa-google"></span> Google Drive Profile
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <img src={{drive.userInfo.user.photoLink}} class="img-circle" alt="Profile" width="60" height="60">
+                    </div>
+                    <div class="col-xs-4">
+                        <p>
+                            <strong>Id</strong>: {{drive.userInfo.user.permissionId}}
+                            <br>
+                            <strong>Name</strong>: {{drive.userInfo.user.displayName}}
+                            <br>
+                            <strong>Email</strong>: {{drive.userInfo.user.emailAddress}}
+                            <br>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <div class="row">
+                            <h4 class="text-danger">
+                                Storage Info
+                            </h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-offset-1">
 
-            <img src={{drive.userInfo.photoLink}} class="img-circle" alt="Profile" width="60" height="60">
-            <h3 class="text-danger">
-                <span class="fa fa-google"></span> Google</h3>
 
-            <p>
-                <strong>Permission Id</strong>: {{drive.userInfo.permissionId}}
-                <br>
-                <strong>Name</strong>: {{drive.userInfo.displayName}}
-                <br>
-                <strong>Email</strong>: {{drive.userInfo.emailAddress}}
-                <br>
-            </p>
-
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-danger"
+                                    role="progressbar" aria-valuenow="{{drive.usedPercentage}}"
+                                    aria-valuemin="0" aria-valuemax="100"
+                                    style="width: {{drive.usedPercentage}}%">
+                                    {{drive.usedPercentage}} %
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p>
+                                <strong>Storage Limit</strong>: {{drive.limit}} MB.
+                                <br>
+                                <strong>Free Storage</strong>: {{drive.free}} MB.
+                                <br>
+                                <strong>Total Used Storage</strong>: {{drive.usage}} MB.
+                                <br>
+                                <strong>Drive Usage</strong>: {{drive.usageInDrive}} MB.
+                                <br>
+                                <strong>Drive Trash Usage</strong>: {{drive.usageInDriveTrash}} MB.
+                                <br>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div id="driveChart">
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
 
+
+
+    <div class="col-xs-6">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <span class="fa fa-dropbox"></span> Dropbox Profile Example
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <img src={{drive.userInfo.user.photoLink}} class="img-circle" alt="Profile" width="60" height="60">
+                    </div>
+                    <div class="col-xs-4">
+                        <p>
+                            <strong>Id</strong>: {{drive.userInfo.user.permissionId}}
+                            <br>
+                            <strong>Name</strong>: {{drive.userInfo.user.displayName}}
+                            <br>
+                            <strong>Email</strong>: {{drive.userInfo.user.emailAddress}}
+                            <br>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="row">
+                            <h4 class="text-info">
+                                Storage Info
+                            </h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-offset-1">
+
+
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-info"
+                                    role="progressbar" aria-valuenow="{{drive.usedPercentage}}"
+                                    aria-valuemin="0" aria-valuemax="100"
+                                    style="width: {{drive.usedPercentage}}%">
+                                    {{drive.usedPercentage}} %
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p>
+                                <strong>Storage Limit</strong>: {{drive.limit}} MB.
+                                <br>
+                                <strong>Free Storage</strong>: {{drive.free}} MB.
+                                <br>
+                                <strong>Total Used Storage</strong>: {{drive.usage}} MB.
+                                <br>
+                                <strong>Drive Usage</strong>: {{drive.usageInDrive}} MB.
+                                <br>
+                                <strong>Drive Trash Usage</strong>: {{drive.usageInDriveTrash}} MB.
+                                <br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
