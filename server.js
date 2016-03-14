@@ -44,7 +44,7 @@ app.use(express.static(__dirname + '/public'));
 //ROUTES
 // ==================================================================
 app.use('/api', routes);
-app.use('/auth', authRouter);
+app.use('/api/auth', authRouter);
 
 //Catchall route to send users to the frontend
 app.get('*', function(req, res) {

@@ -29,6 +29,78 @@ var SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly',
 
 //-----------------ROUTES----------------//
 
+//----------Local Auth routes------------//
+
+//Authentication route
+authRouter.post('/authenticate', function(req, res)  {
+
+    //find the user
+    User.findOne({
+        'local.email': req.body.email
+    }).exec(function(err, user) {
+        if (err) throw err;
+
+        //if no user found
+        if(!user){
+            res.json({
+                success: false,
+                message: 'Authentication failed. User not found.'
+            });
+        } else if(user){
+            //check if password matches
+            var validPassword = user.comparePassword(req.body.password);
+            if(!validPassword){
+                res.json({
+                    success: false,
+                    message: 'Authentication failed. Wrong password.'
+                });
+            } else {
+                var token = jwt.sign({
+                    email: user.local.email,
+                    googleId: user.google.id,
+                }, secret, {
+                    expiresIn: 86400 //24 hours
+                });
+
+                res.json({
+                    success: true,
+                    message: 'Enjoy your token',
+                    token: token
+                });
+            }
+        }
+    });
+});
+
+//Save user in the db
+authRouter.post('/registerUser', function(req, res)    {
+    //Create instance of user model.
+    var user = new User();
+
+    //set the atributes of user from the requests
+    user.local.email = req.body.email;
+    user.local.password = req.body.password;
+
+    //save the user
+    user.save(function(err) {
+
+        if (err) {
+            //duplicate entry
+            if(err.code == 11000){
+                return res.json({
+                    success: false,
+                    message: 'A user with that username already exists.'});
+            } else {
+                return res.send(err);
+            }
+        }
+
+        res.json({ message: 'User Registered!'});
+    });
+
+});
+
+//----------Google Auth Routes-----------//
 
 //Generates the auth url and return it.
 authRouter.get('/google', function(req, res) {
@@ -91,7 +163,7 @@ authRouter.get('/google/callbacku', function(req, res) {
                                             message: 'Error savin user:' + err
                                         });
                                     } else {
-                                        
+
                                     }
                                 });
                             }
@@ -106,6 +178,7 @@ authRouter.get('/google/callbacku', function(req, res) {
     });
 });
 
+//Test routes with the first use cases
 authRouter.get('/google/items', function(req, res) {
     oauth2Client.getToken(req.query.code, function(err, token) {
         if (!err) {
@@ -177,14 +250,14 @@ authRouter.get('/google/user', function(req, res) {
             var drive = google.drive('v3');
             drive.about.get({
                 auth: oauth2Client,
-                fields: "user"
+                fields: "user, storageQuota"
             }, function(err, response) {
                 if (err) {
                     console.log('The API returned an error: ' + err);
                     return;
                 }
 
-                res.json(response.user);
+                res.json(response);
             });
         }
     });

@@ -11,15 +11,15 @@ angular.module('driveService', [])
     var driveFactory = {};
 
     driveFactory.getItems = function(code)  {
-        return $http.get('/auth/google/items?code=' + code);
+        return $http.get('/api/auth/google/items?code=' + code);
     };
 
     driveFactory.getUserInfo = function(code)   {
-        return $http.get('/auth/google/user?code=' + code);
+        return $http.get('/api/auth/google/user?code=' + code);
     };
 
     driveFactory.getChanges = function(code)    {
-        return $http.get('/auth/google/changes?code=' + code);
+        return $http.get('/api/auth/google/changes?code=' + code);
     };
 
     return driveFactory;

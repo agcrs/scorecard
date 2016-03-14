@@ -76,7 +76,7 @@ angular.module('authService', [])
 	};
 
     authFactory.redirectAuthGoogle = function() {
-        return $http.get('/auth/google');
+        return $http.get('/api/auth/google');
     };
 
     return authFactory;

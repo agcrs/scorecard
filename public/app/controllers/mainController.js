@@ -11,7 +11,7 @@ angular.module('mainController', [])
 
     var vm = this;  //Set up the view-model
 
-    /*vm.loggedIn = Auth.isLoggedIn();    //Get info if someone is logged in
+    vm.loggedIn = Auth.isLoggedIn();    //Get info if someone is logged in
 
     //Check if the user is logged in on every request
     $rootScope.$on('$routeChangeStart', function()  {  //Detect a router change
@@ -19,8 +19,8 @@ angular.module('mainController', [])
         vm.loggedIn = Auth.isLoggedIn();
 
         Auth.getUser() //get user information on route change
-            .success(function(data) {
-                vm.user = data;
+            .then(function(data) {
+                vm.user = data.data;
             });
 
     });
@@ -50,7 +50,7 @@ angular.module('mainController', [])
     vm.doLogout = function()    {
         Auth.logout();
         vm.user = {};
-        $location.path('/login');
-    };*/
+        $location.path('/auth/login');
+    };
 
 });
