@@ -4,7 +4,7 @@
 
 angular.module('authController', ['authService'])
 
-.controller('authController', function(Auth) {
+.controller('authController', ['Auth', function(Auth) {
 
     var vm = this;  //Set up the view-model
 
@@ -12,4 +12,4 @@ angular.module('authController', ['authService'])
         .success(function(googleAuthUrl) {
             window.location.replace(googleAuthUrl);
         });
-});
+}]);

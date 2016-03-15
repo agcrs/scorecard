@@ -48,25 +48,25 @@
 
                             <div class="progress">
                                 <div class="progress-bar progress-bar-danger"
-                                    role="progressbar" aria-valuenow="{{drive.usedPercentage}}"
+                                    role="progressbar" aria-valuenow="{{drive.storageInfo.usedPercentage}}"
                                     aria-valuemin="0" aria-valuemax="100"
-                                    style="width: {{drive.usedPercentage}}%">
-                                    {{drive.usedPercentage}} %
+                                    style="width: {{drive.storageInfo.usedPercentage}}%">
+                                    {{drive.storageInfo.usedPercentage}} %
                                 </div>
                             </div>
                             </div>
                         </div>
                         <div class="row">
                             <p>
-                                <strong>Storage Limit</strong>: {{drive.limit}} MB.
+                                <strong>Storage Limit</strong>: {{drive.storageInfo.limit}} MB.
                                 <br>
-                                <strong>Free Storage</strong>: {{drive.free}} MB.
+                                <strong>Free Storage</strong>: {{drive.storageInfo.free}} MB.
                                 <br>
-                                <strong>Total Used Storage</strong>: {{drive.usage}} MB.
+                                <strong>Total Used Storage</strong>: {{drive.storageInfo.usage}} MB.
                                 <br>
-                                <strong>Drive Usage</strong>: {{drive.usageInDrive}} MB.
+                                <strong>Drive Usage</strong>: {{drive.storageInfo.usageInDrive}} MB.
                                 <br>
-                                <strong>Drive Trash Usage</strong>: {{drive.usageInDriveTrash}} MB.
+                                <strong>Drive Trash Usage</strong>: {{drive.storageInfo.usageInDriveTrash}} MB.
                                 <br>
                             </p>
                         </div>
@@ -119,25 +119,25 @@
 
                             <div class="progress">
                                 <div class="progress-bar progress-bar-info"
-                                    role="progressbar" aria-valuenow="{{drive.usedPercentage}}"
+                                    role="progressbar" aria-valuenow="{{drive.storageInfo.usedPercentage}}"
                                     aria-valuemin="0" aria-valuemax="100"
-                                    style="width: {{drive.usedPercentage}}%">
-                                    {{drive.usedPercentage}} %
+                                    style="width: {{drive.storageInfo.usedPercentage}}%">
+                                    {{drive.storageInfo.usedPercentage}} %
                                 </div>
                             </div>
                             </div>
                         </div>
                         <div class="row">
                             <p>
-                                <strong>Storage Limit</strong>: {{drive.limit}} MB.
+                                <strong>Storage Limit</strong>: {{drive.storageInfo.limit}} MB.
                                 <br>
-                                <strong>Free Storage</strong>: {{drive.free}} MB.
+                                <strong>Free Storage</strong>: {{drive.storageInfo.free}} MB.
                                 <br>
-                                <strong>Total Used Storage</strong>: {{drive.usage}} MB.
+                                <strong>Total Used Storage</strong>: {{drive.storageInfo.usage}} MB.
                                 <br>
-                                <strong>Drive Usage</strong>: {{drive.usageInDrive}} MB.
+                                <strong>Drive Usage</strong>: {{drive.storageInfo.usageInDrive}} MB.
                                 <br>
-                                <strong>Drive Trash Usage</strong>: {{drive.usageInDriveTrash}} MB.
+                                <strong>Drive Trash Usage</strong>: {{drive.storageInfo.usageInDriveTrash}} MB.
                                 <br>
                             </p>
                         </div>
@@ -163,7 +163,7 @@
                 <div class="row">
                     <div class="col-xs-6">
                         <p>
-                            <strong>Total number of files</strong>: {{drive.totalArchives}}
+                            <strong>Total number of files</strong>: {{drive.countedFilesInfo.totalArchives}}
                             <br>
                         </p>
                     </div>
@@ -180,29 +180,31 @@
 
 
                             <p>
-                                <strong>Google Docs</strong>: {{drive.gDocs}}.
+                                <strong>Google Docs</strong>: {{drive.countedFilesInfo.gDocs}}.
                                 <br>
-                                <strong>Google Drawings</strong>: {{drive.gDrawings}}.
+                                <strong>Google Drawings</strong>: {{drive.countedFilesInfo.gDrawings}}.
                                 <br>
-                                <strong>Google Forms</strong>: {{drive.gForms}}.
+                                <strong>Google Forms</strong>: {{drive.countedFilesInfo.gForms}}.
                                 <br>
-                                <strong>Google Maps</strong>: {{drive.gMaps}}.
+                                <strong>Google Maps</strong>: {{drive.countedFilesInfo.gMaps}}.
                                 <br>
-                                <strong>Google Slides</strong>: {{drive.gSlides}}.
+                                <strong>Google Slides</strong>: {{drive.countedFilesInfo.gSlides}}.
                                 <br>
-                                <strong>Google Sheets</strong>: {{drive.gSheets}}.
+                                <strong>Google Sheets</strong>: {{drive.countedFilesInfo.gSheets}}.
                                 <br>
-                                <strong>Pdf</strong>: {{drive.pdf}}.
+                                <strong>Pdf</strong>: {{drive.countedFilesInfo.pdf}}.
                                 <br>
-                                <strong>Images</strong>: {{drive.img}}.
+                                <strong>Images</strong>: {{drive.countedFilesInfo.img}}.
                                 <br>
-                                <strong>Compressed</strong>: {{drive.zip}}.
+                                <strong>Compressed</strong>: {{drive.countedFilesInfo.zip}}.
                                 <br>
-                                <strong>Various</strong>: {{drive.various}}.
+                                <strong>Various</strong>: {{drive.countedFilesInfo.various}}.
                                 <br>
+                                <div id="filePieChart">
+                                </div>
                             </p>
                             </div>
-                            <div class="col-xs-10">
+                            <div class="col-xs-9 col-xs-offset-1">
                                 <div id="fileChart">
                                 </div>
                             </div>
@@ -214,3 +216,5 @@
         </div>
     </div>
 </div>
+
+<div id="top_x_div" style="width: 900px; height: 500px;"></div>

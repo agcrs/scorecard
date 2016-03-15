@@ -7,7 +7,7 @@
 
 angular.module('mainController', [])
 
-.controller('mainController', function($rootScope, $location, Auth) {
+.controller('mainController', ['$rootScope', '$location', 'Auth', function($rootScope, $location, Auth) {
 
     var vm = this;  //Set up the view-model
 
@@ -53,4 +53,4 @@ angular.module('mainController', [])
         $location.path('/auth/login');
     };
 
-});
+}]);

@@ -5,7 +5,7 @@ angular.module('authService', [])
 //inject $window to store token client-side
 //===============================================
 
-.factory('AuthToken', function($window) {
+.factory('AuthToken', ['$window', function($window) {
 
     var authTokenFactory = {};
 
@@ -24,7 +24,7 @@ angular.module('authService', [])
     };
 
     return authTokenFactory;
-})
+}])
 
 //===============================================
 //Auth factory to login and get information
@@ -33,7 +33,7 @@ angular.module('authService', [])
 //inject AuthToken to manage tokens
 //===============================================
 
-.factory('Auth', function($http, $q, AuthToken) {
+.factory('Auth', ['$http', '$q', 'AuthToken', function($http, $q, AuthToken) {
 
     var authFactory = {};
 
@@ -80,14 +80,14 @@ angular.module('authService', [])
     };
 
     return authFactory;
-})
+}])
 
 //===============================================
 //Application configuration to integrate token
 //into requests.
 //===============================================
 
-.factory('AuthInterceptor', function($q, $location, AuthToken) {
+.factory('AuthInterceptor', ['$q', '$location', 'AuthToken', function($q, $location, AuthToken) {
 
     var interceptorFactory = {};
 
@@ -114,4 +114,4 @@ angular.module('authService', [])
     };
 
     return interceptorFactory;
-});
+}]);
