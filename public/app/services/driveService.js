@@ -83,7 +83,7 @@ angular.module('driveService', [])
             is3D: true,
             backgroundColor: 'transparent',
             'width':300,
-            'height':300
+            'height':200
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('storageChart'));

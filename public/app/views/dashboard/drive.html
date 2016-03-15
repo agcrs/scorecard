@@ -35,28 +35,20 @@
                         </p>
                     </div>
                 </div>
+                <h4 class="text-danger">
+                    Storage Info
+                </h4>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-danger"
+                        role="progressbar" aria-valuenow="{{drive.storageInfo.usedPercentage}}"
+                        aria-valuemin="0" aria-valuemax="100"
+                        style="width: {{drive.storageInfo.usedPercentage}}%">
+                        {{drive.storageInfo.usedPercentage}} %
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-xs-4">
-                        <div class="row">
-                            <h4 class="text-danger">
-                                Storage Info
-                            </h4>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-offset-1">
 
-
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-danger"
-                                    role="progressbar" aria-valuenow="{{drive.storageInfo.usedPercentage}}"
-                                    aria-valuemin="0" aria-valuemax="100"
-                                    style="width: {{drive.storageInfo.usedPercentage}}%">
-                                    {{drive.storageInfo.usedPercentage}} %
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="row">
                             <p>
                                 <strong>Storage Limit</strong>: {{drive.storageInfo.limit}} MB.
                                 <br>
@@ -69,7 +61,7 @@
                                 <strong>Drive Trash Usage</strong>: {{drive.storageInfo.usageInDriveTrash}} MB.
                                 <br>
                             </p>
-                        </div>
+
                     </div>
                     <div class="col-xs-2">
                         <div id="storageChart">
@@ -87,7 +79,7 @@
         <div class="panel panel-info">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    <span class="fa fa-dropbox"></span> Dropbox Profile Example
+                    <span class="fa fa-google"></span> Google Drive Profile
                 </h3>
             </div>
             <div class="panel-body">
@@ -106,28 +98,20 @@
                         </p>
                     </div>
                 </div>
+                <h4 class="text-info">
+                    Storage Info
+                </h4>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-info"
+                        role="progressbar" aria-valuenow="{{drive.storageInfo.usedPercentage}}"
+                        aria-valuemin="0" aria-valuemax="100"
+                        style="width: {{drive.storageInfo.usedPercentage}}%">
+                        {{drive.storageInfo.usedPercentage}} %
+                    </div>
+                </div>
                 <div class="row">
-                    <div class="col-xs-6">
-                        <div class="row">
-                            <h4 class="text-info">
-                                Storage Info
-                            </h4>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-offset-1">
+                    <div class="col-xs-4">
 
-
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-info"
-                                    role="progressbar" aria-valuenow="{{drive.storageInfo.usedPercentage}}"
-                                    aria-valuemin="0" aria-valuemax="100"
-                                    style="width: {{drive.storageInfo.usedPercentage}}%">
-                                    {{drive.storageInfo.usedPercentage}} %
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="row">
                             <p>
                                 <strong>Storage Limit</strong>: {{drive.storageInfo.limit}} MB.
                                 <br>
@@ -140,7 +124,7 @@
                                 <strong>Drive Trash Usage</strong>: {{drive.storageInfo.usageInDriveTrash}} MB.
                                 <br>
                             </p>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -170,11 +154,11 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
-                        <div class="row">
+
                             <h4 class="text-danger">
-                                Storage Info
+                                Stored files type info
                             </h4>
-                        </div>
+
                         <div class="row">
                             <div class="col-xs-2">
 
