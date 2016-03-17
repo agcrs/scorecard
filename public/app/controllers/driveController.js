@@ -5,7 +5,8 @@
 
 angular.module('driveController', ['driveService'])
 
-.controller('driveController', ['$location', '$routeParams', 'Drive', function($location, $routeParams, Drive) {
+.controller('driveController', ['$location', '$routeParams', 'Drive',
+         function($location, $routeParams, Drive) {
 
     if ($location.search().error === 'access_denied') {
         window.location.replace('/');
@@ -14,15 +15,12 @@ angular.module('driveController', ['driveService'])
     var vm = this; //Set up the view-model
     vm.processing = true;
 
-    Drive.getUserInfo($routeParams.code)
+    Drive.getProfileInfo()
         .success(function(data) {
-            vm.userInfo = data.aboutInfo;
-            vm.fileInfo = data.fileInfo;
+            vm.userInfo = data;
+            vm.storageInfo = Drive.drawStorageInfoChart(data.storageQuota);
             vm.processing = false;
-            vm.storageInfo = Drive.drawStorageInfoChart(data.aboutInfo.storageQuota);
-            vm.countedFilesInfo = Drive.countFileTypes(data.fileInfo);
-            Drive.drawFileChart(vm.countedFilesInfo);
-        });
+    });
 
 
 }]);

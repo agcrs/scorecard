@@ -16,22 +16,16 @@ angular.module('app.routes', ['ngRoute'])
         })
 
         .when('/auth/google/callback', {    //Receives the google auth callback
-            templateUrl: 'app/views/dashboard/drive.html',
-            controller: 'driveController',
+            templateUrl: 'app/views/dashboard/profile.html',
+            controller: 'authGoogleController',
             controllerAs: 'drive'
         })
 
-        //Local authentication routes
-        .when('/auth/register', {   //Register route
-            templateUrl: 'app/views/authentication/register.html',
-            controller: '',
-            controllerAs: 'register'
-        })
-
-        .when('/auth/login', {  //Login route
-            templateUrl: 'app/views/authentication/login.html',
-            controller: 'mainController',
-            controllerAs: 'login'
+        //Google Auth Routes
+        .when('/profile', { //Redirects to google auth url
+            templateUrl: 'app/views/dashboard/profile.html',
+            controller: 'driveController',
+            controllerAs: 'drive'
         });
 
         //get rid of the hash in the url

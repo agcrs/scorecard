@@ -10,6 +10,10 @@ angular.module('driveService', [])
 
     var driveFactory = {};
 
+    driveFactory.getProfileInfo = function()    {
+        return $http.get('/api/drive/profileInfo');
+    };
+
     driveFactory.getItems = function(code)  {
         return $http.get('/api/auth/google/items?code=' + code);
     };
@@ -146,8 +150,6 @@ angular.module('driveService', [])
 
 
     };
-
-
 
     return driveFactory;
 }]);

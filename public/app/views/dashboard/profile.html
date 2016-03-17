@@ -1,0 +1,75 @@
+<div class="page-header">
+    <h1>
+        Dashboard
+    </h1>
+</div>
+
+<div class="jumbotron text-center" ng-show="drive.processing">
+    <span class="glyphicon glyphicon-repeat spinner"></span>
+    <p>Loading...</p>
+</div>
+
+<div class="row" ng-show="!drive.processing">
+
+    <!-- GOOGLE INFORMATION -->
+    <div class="col-xs-6">
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <span class="fa fa-google"></span> Google Drive Profile
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <img src={{drive.userInfo.user.photoLink}} class="img-circle" alt="Profile" width="60" height="60">
+                    </div>
+                    <div class="col-xs-4">
+                        <p>
+                            <strong>Id</strong>: {{drive.userInfo.user.permissionId}}
+                            <br>
+                            <strong>Name</strong>: {{drive.userInfo.user.displayName}}
+                            <br>
+                            <strong>Email</strong>: {{drive.userInfo.user.emailAddress}}
+                            <br>
+                        </p>
+                    </div>
+                </div>
+                <h4 class="text-danger">
+                    Storage Info
+                </h4>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-danger"
+                        role="progressbar" aria-valuenow="{{drive.storageInfo.usedPercentage}}"
+                        aria-valuemin="0" aria-valuemax="100"
+                        style="width: {{drive.storageInfo.usedPercentage}}%">
+                        {{drive.storageInfo.usedPercentage}} %
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+
+                            <p>
+                                <strong>Storage Limit</strong>: {{drive.storageInfo.limit}} MB.
+                                <br>
+                                <strong>Free Storage</strong>: {{drive.storageInfo.free}} MB.
+                                <br>
+                                <strong>Total Used Storage</strong>: {{drive.storageInfo.usage}} MB.
+                                <br>
+                                <strong>Drive Usage</strong>: {{drive.storageInfo.usageInDrive}} MB.
+                                <br>
+                                <strong>Drive Trash Usage</strong>: {{drive.storageInfo.usageInDriveTrash}} MB.
+                                <br>
+                            </p>
+
+                    </div>
+                    <div class="col-xs-2">
+                        <div id="storageChart">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

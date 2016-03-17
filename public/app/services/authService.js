@@ -38,13 +38,21 @@ angular.module('authService', [])
     var authFactory = {};
 
     //handle login
-    authFactory.login = function(username, password) {
+    /*authFactory.login = function(username, password) {
 
         //return the promise object an its data
         return $http.post('/api/authenticate', {
             username: username,
             password: password
         })
+            .success(function(data) {
+                AuthToken.setToken(data.token);
+                return data;
+            });
+    };*/
+
+    authFactory.googleLogin = function(code)    {
+        return $http.get('/api/auth/google/authenticate?code=' + code)
             .success(function(data) {
                 AuthToken.setToken(data.token);
                 return data;
@@ -69,7 +77,7 @@ angular.module('authService', [])
     //get user info
     authFactory.getUser = function() {
 		if (AuthToken.getToken()) {
-            return $http.get('/api/me', { cache: true });
+            return $http.get('/api/drive/me', { cache: true });
         } else {
 			return $q.reject({ message: 'User has no token.' });
         }
@@ -107,7 +115,7 @@ angular.module('authService', [])
 
         if(response.status == 403){ //If server returns forbidden response
             AuthToken.setToken();   //Remove the tokens
-            $location.path('/login');   //Redirect to login
+            $location.path('/');   //Redirect to login
         }
 
         return $q.reject(response); //Return the error from the server as a promise

@@ -54,12 +54,12 @@
                 </div>
                 <ul class="nav navbar-nav">
                     <li ng-if="main.loggedIn">
-                        <a href="/users">
+                        <a href="/profile">
                             <span class="glyphicon glyphicon-user"></span> Profile</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li ng-if="main.loggedIn" class="navbar-text">Hello {{ main.user.username }}!</li>
+                    <li ng-if="main.loggedIn" class="navbar-text">Hello {{main.user.googleId}}!</li>
                     <li ng-if="main.loggedIn"><a href="#" ng-click="main.doLogout()">Logout</a></li>
                 </ul>
             </div>

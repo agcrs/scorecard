@@ -25,32 +25,12 @@ angular.module('mainController', [])
 
     });
 
-    //Function to handle login form
-    vm.doLogin = function() {
-
-        vm.processing = true;
-        vm.error = ""; //Clear the error
-
-        Auth.login(vm.loginData.username, vm.loginData.password)
-            .success(function(data) {
-
-                vm.processing = false;
-
-                if (data.success){
-                    $location.path('/users');   //If the user logs in, redirect
-                } else {
-                    vm.error = data.message;
-                }
-
-
-            });
-    };
-
     //Function to handle loggin out
     vm.doLogout = function()    {
         Auth.logout();
         vm.user = {};
-        $location.path('/auth/login');
+        vm.loggedIn = false;
+        $location.path('/');
     };
 
 }]);
