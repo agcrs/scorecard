@@ -25,5 +25,10 @@
     "jsonwebtoken": "^5.7.0",
     "mongoose": "^4.4.5",
     "morgan": "^1.7.0"
+  },
+  "devDependencies": {
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-jasmine": "^0.3.7"
   }
 }
