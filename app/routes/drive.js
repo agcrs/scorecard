@@ -29,6 +29,7 @@ var SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly',
 
 
 //---MIDDLEWARE TO CHECK AUTHENTICATION--//
+//This middleware checks if the caller is providing the correct auth info.
 driveRouter.use(function(req, res, next) {
     //Check header or url parameters or post parameters for the token
     var token = req.body.token || req.params.token ||
@@ -60,10 +61,27 @@ driveRouter.use(function(req, res, next) {
 
 //-----------------ROUTES----------------//
 
-//----------Local Auth routes------------//
-
-//----------Google Auth Routes-----------//
-
+//----------Google Drive Routes-----------//
+// GET /profileInfo returns basic information about the google drive account.
+// The structure of the returned data is as follows:
+/*
+    {
+        user: {
+            kind
+            displayName
+            photoLink
+            me
+            permissionId
+            emailAddress
+        },
+        storageQuota: {
+            limit
+            usage
+            usageInDrive
+            usageInDriveTrash
+        }
+    }
+*/
 driveRouter.get('/profileInfo', function(req, res) {
 
     User.findOne({
@@ -91,6 +109,7 @@ driveRouter.get('/profileInfo', function(req, res) {
 
 });
 
+//GET /me returns the info stored in the token.
 driveRouter.get('/me', function(req, res) {
     res.send(req.decoded);
 });
