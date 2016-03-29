@@ -77,7 +77,7 @@ angular.module('authService', [])
     //get user info
     authFactory.getUser = function() {
 		if (AuthToken.getToken()) {
-            return $http.get('/api/drive/me', { cache: true });
+            return $http.get('/api/user/me', { cache: true });
         } else {
 			return $q.reject({ message: 'User has no token.' });
         }

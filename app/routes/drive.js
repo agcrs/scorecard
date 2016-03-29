@@ -92,7 +92,7 @@ driveRouter.get('/profileInfo', function(req, res) {
         oauth2Client.setCredentials(user.google.token);
 
         var drive = google.drive('v3');
-        var response = {};
+
         drive.about.get({
             auth: oauth2Client,
             fields: "user, storageQuota"
@@ -105,13 +105,31 @@ driveRouter.get('/profileInfo', function(req, res) {
 
         });
     });
-
-
 });
 
-//GET /me returns the info stored in the token.
-driveRouter.get('/me', function(req, res) {
-    res.send(req.decoded);
+driveRouter.get('/fileInfo', function(req, res) {
+
+    User.findOne({
+        'google.id': req.decoded.googleId
+    }).exec(function(err, user) {
+        if(err) console.log('Error finding user.');
+
+        oauth2Client.setCredentials(user.google.token);
+
+        var drive = google.drive('v3');
+
+        drive.files.list({
+            auth: oauth2Client,
+            pageSize: 1000,
+            fields: "files(mimeType)"
+        }, function(err, fileResponse) {
+            if (err) {
+                console.log('The API returned an error: ' + err);
+                return;
+            }
+            res.json(fileResponse);
+        });
+    });
 });
 
 module.exports = driveRouter;

@@ -16,7 +16,7 @@ angular.module('app.routes', ['ngRoute'])
         })
 
         .when('/auth/google/callback', {    //Receives the google auth callback
-            templateUrl: 'app/views/dashboard/profile.html',
+            templateUrl: 'app/views/loading.html',
             controller: 'authGoogleController',
             controllerAs: 'drive'
         })

@@ -13,7 +13,6 @@ var path = require('path');
 
 //Routes
 var authRouter = require('./app/routes/auth');
-var routes = require('./app/routes/routes');
 var userRouter = require('./app/routes/user');
 var driveRouter = require('./app/routes/drive');
 
@@ -45,7 +44,6 @@ app.use(express.static(__dirname + '/public'));
 
 //ROUTES
 // ==================================================================
-app.use('/api', routes);
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 app.use('/api/drive', driveRouter);

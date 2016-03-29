@@ -14,16 +14,8 @@ angular.module('driveService', [])
         return $http.get('/api/drive/profileInfo');
     };
 
-    driveFactory.getItems = function(code)  {
-        return $http.get('/api/auth/google/items?code=' + code);
-    };
-
-    driveFactory.getUserInfo = function(code)   {
-        return $http.get('/api/auth/google/user?code=' + code);
-    };
-
-    driveFactory.getChanges = function(code)    {
-        return $http.get('/api/auth/google/changes?code=' + code);
+    driveFactory.getItemsInfo = function()  {
+        return $http.get('/api/drive/fileInfo');
     };
 
     driveFactory.countFileTypes = function(data) {

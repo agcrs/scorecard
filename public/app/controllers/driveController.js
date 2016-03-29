@@ -13,14 +13,23 @@ angular.module('driveController', ['driveService', 'chartService'])
     }
 
     var vm = this; //Set up the view-model
-    vm.processing = true;
+    vm.profileProcessing = true;
+    vm.fileProcessing = true;
 
     Drive.getProfileInfo()
         .success(function(data) {
             vm.userInfo = data;
             vm.storageInfo = Drive.parseStorageDataInfoToGb(data.storageQuota);
             Charts.drawStorageInfoChart(vm.storageInfo);
-            vm.processing = false;
+            vm.profileProcessing = false;
+    });
+
+    Drive.getItemsInfo()
+        .success(function(data) {
+            vm.fileInfo = data;
+            vm.countedFilesInfo = Drive.countFileTypes(data);
+            Charts.drawFileChart(vm.countedFilesInfo);
+            vm.fileProcessing = false;
     });
 
 

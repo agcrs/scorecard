@@ -37,7 +37,7 @@ apiRouter.use(function(req, res, next)  {
     }
 });
 
-//Get the logged user info.
+//GET /me returns the logged user info stored in the token.
 apiRouter.get('/me', function(req, res) {
     res.send(req.decoded);
 });

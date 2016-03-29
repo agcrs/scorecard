@@ -47,7 +47,6 @@ authRouter.get('/google', function(req, res) {
 authRouter.get('/google/authenticate', function(req, res) {
     oauth2Client.getToken(req.query.code, function(err, token) {
         if (!err) {
-            //Configuramos el cliente con las credenciales correctas
             oauth2Client.setCredentials(token);
 
             var drive = google.drive('v3');
@@ -80,6 +79,7 @@ authRouter.get('/google/authenticate', function(req, res) {
 
                             var localToken = jwt.sign({
                                 googleId: user.google.id,
+                                email: user.google.email,
                             }, secret, {
                                 expiresIn: 86400
                             });
@@ -106,6 +106,7 @@ authRouter.get('/google/authenticate', function(req, res) {
 
                             var localToken = jwt.sign({
                                 googleId: newUser.google.id,
+                                email: newUser.google.email,
                             }, secret, {
                                 expiresIn: 86400
                             });

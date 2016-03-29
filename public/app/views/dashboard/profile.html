@@ -1,15 +1,20 @@
 <div class="page-header">
     <h1>
-        Dashboard
+        Profile Information
     </h1>
 </div>
 
-<div class="jumbotron text-center" ng-show="drive.processing">
+<div class="jumbotron text-center" ng-show="drive.profileProcessing">
     <span class="glyphicon glyphicon-repeat spinner"></span>
     <p>Loading...</p>
 </div>
 
-<div class="row" ng-show="!drive.processing">
+<div class="jumbotron text-center" ng-show="drive.fileProcessing">
+    <span class="glyphicon glyphicon-repeat spinner"></span>
+    <p>Loading...</p>
+</div>
+
+<div class="row" ng-show="!drive.profileProcessing">
 
     <!-- GOOGLE INFORMATION -->
     <div class="col-xs-6">
@@ -70,6 +75,132 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+
+    <div class="col-xs-6">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <span class="fa fa-dropbox"></span> Dropbox Profile
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <img src={{drive.userInfo.user.photoLink}} class="img-circle" alt="Profile" width="60" height="60">
+                    </div>
+                    <div class="col-xs-4">
+                        <p>
+                            <strong>Id</strong>: {{drive.userInfo.user.permissionId}}
+                            <br>
+                            <strong>Name</strong>: {{drive.userInfo.user.displayName}}
+                            <br>
+                            <strong>Email</strong>: {{drive.userInfo.user.emailAddress}}
+                            <br>
+                        </p>
+                    </div>
+                </div>
+                <h4 class="text-info">
+                    Storage Info
+                </h4>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-info"
+                        role="progressbar" aria-valuenow="{{drive.storageInfo.usedPercentage}}"
+                        aria-valuemin="0" aria-valuemax="100"
+                        style="width: {{drive.storageInfo.usedPercentage}}%">
+                        {{drive.storageInfo.usedPercentage}} %
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+
+                            <p>
+                                <strong>Storage Limit</strong>: {{drive.storageInfo.limit}} MB.
+                                <br>
+                                <strong>Free Storage</strong>: {{drive.storageInfo.free}} MB.
+                                <br>
+                                <strong>Total Used Storage</strong>: {{drive.storageInfo.usage}} MB.
+                                <br>
+                                <strong>Drive Usage</strong>: {{drive.storageInfo.usageInDrive}} MB.
+                                <br>
+                                <strong>Drive Trash Usage</strong>: {{drive.storageInfo.usageInDriveTrash}} MB.
+                                <br>
+                            </p>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<div class="row" ng-show="!drive.fileProcessing">
+
+    <!-- GOOGLE INFORMATION -->
+    <div class="col-xs-12">
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <span class="fa fa-google"></span> Google Drive File Info
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <p>
+                            <strong>Total number of files</strong>: {{drive.countedFilesInfo.totalArchives}}
+                            <br>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+
+                            <h4 class="text-danger">
+                                Stored files type info
+                            </h4>
+
+                        <div class="row">
+                            <div class="col-xs-2">
+
+
+                            <p>
+                                <strong>Google Docs</strong>: {{drive.countedFilesInfo.gDocs}}.
+                                <br>
+                                <strong>Google Drawings</strong>: {{drive.countedFilesInfo.gDrawings}}.
+                                <br>
+                                <strong>Google Forms</strong>: {{drive.countedFilesInfo.gForms}}.
+                                <br>
+                                <strong>Google Maps</strong>: {{drive.countedFilesInfo.gMaps}}.
+                                <br>
+                                <strong>Google Slides</strong>: {{drive.countedFilesInfo.gSlides}}.
+                                <br>
+                                <strong>Google Sheets</strong>: {{drive.countedFilesInfo.gSheets}}.
+                                <br>
+                                <strong>Pdf</strong>: {{drive.countedFilesInfo.pdf}}.
+                                <br>
+                                <strong>Images</strong>: {{drive.countedFilesInfo.img}}.
+                                <br>
+                                <strong>Compressed</strong>: {{drive.countedFilesInfo.zip}}.
+                                <br>
+                                <strong>Various</strong>: {{drive.countedFilesInfo.various}}.
+                                <br>
+                                <div id="filePieChart">
+                                </div>
+                            </p>
+                            </div>
+                            <div class="col-xs-9 col-xs-offset-1">
+                                <div id="fileChart">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
