@@ -107,6 +107,18 @@ driveRouter.get('/profileInfo', function(req, res) {
     });
 });
 
+// GET /fileInfo returns the mimeType information about the files in there
+//drive account.
+// The structure of the returned data is as follows:
+/*
+    {
+        files: [
+            {
+                mimeType:
+            }
+        ]
+    }
+*/
 driveRouter.get('/fileInfo', function(req, res) {
 
     User.findOne({
