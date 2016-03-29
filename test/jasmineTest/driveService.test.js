@@ -1,4 +1,4 @@
-describe('sample', function() {
+describe('Drive Service Tests', function() {
 
     //beforeEach(module('scorecardApp'));
 
