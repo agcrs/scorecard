@@ -12,9 +12,9 @@ var path = require('path');
 //Models
 
 //Routes
-var authRouter = require('./app/routes/auth');
-var userRouter = require('./app/routes/user');
-var driveRouter = require('./app/routes/drive');
+var authRouter = require('./app/routes/authRoute');
+var userRouter = require('./app/routes/userRoute');
+var driveRouter = require('./app/routes/driveRoute');
 
 var app = express();  //Define the app using express
 

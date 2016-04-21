@@ -1,11 +1,9 @@
 //-------------------------------------//
-//Routes needed by the authentication
-//services used by the app.
+//Drive controller
 //-------------------------------------//
 
 //Needed packages
-var express = require('express'),
-    config = require('../../config'),
+var config = require('../../config'),
     User = require('../models/user'),
     jwt = require('jsonwebtoken'),
 
@@ -14,8 +12,6 @@ var express = require('express'),
 
 //Secret for the webtoken
 var secret = config.secret;
-
-var driveRouter = express.Router();
 
 //Google authentication info
 var SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly',
@@ -27,43 +23,10 @@ var SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly',
     auth = new googleAuth(),
     oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
 
+var driveController = {};
 
-//---MIDDLEWARE TO CHECK AUTHENTICATION--//
-//This middleware checks if the caller is providing the correct auth info.
-driveRouter.use(function(req, res, next) {
-    //Check header or url parameters or post parameters for the token
-    var token = req.body.token || req.params.token ||
-        req.headers['x-access-token'];
-
-    //decode token
-    if (token) {
-        //verify secret and check expiration
-        jwt.verify(token, secret, function(err, decoded) {
-            if (err) {
-                return res.status(403).send({
-                    success: false,
-                    message: 'Failed to authenticate token.'
-                });
-            } else {
-                //If everything good, save to request for use in other routes
-                req.decoded = decoded;
-
-                next();
-            }
-        });
-    } else { //If there is no token return error message
-        return res.status(403).send({
-            success: false,
-            message: 'No token provided.'
-        });
-    }
-});
-
-//-----------------ROUTES----------------//
-
-//----------Google Drive Routes-----------//
-// GET /profileInfo returns basic information about the google drive account.
-// The structure of the returned data is as follows:
+/*Returns basic information about the google drive account.
+  The structure of the returned data is as follows:
 /*
     {
         user: {
@@ -82,7 +45,7 @@ driveRouter.use(function(req, res, next) {
         }
     }
 */
-driveRouter.get('/profileInfo', function(req, res) {
+driveController.getProfileInfo = function(req, res) {
 
     User.findOne({
         'google.id': req.decoded.googleId
@@ -105,12 +68,11 @@ driveRouter.get('/profileInfo', function(req, res) {
 
         });
     });
-});
+};
 
-// GET /fileInfo returns the mimeType information about the files in there
-//drive account.
-// The structure of the returned data is as follows:
-/*
+/*Returns the mimeType information about the files in there
+  drive account.
+  The structure of the returned data is as follows:
     {
         files: [
             {
@@ -119,7 +81,7 @@ driveRouter.get('/profileInfo', function(req, res) {
         ]
     }
 */
-driveRouter.get('/fileInfo', function(req, res) {
+driveController.getFileInfo = function(req, res) {
 
     User.findOne({
         'google.id': req.decoded.googleId
@@ -142,6 +104,6 @@ driveRouter.get('/fileInfo', function(req, res) {
             res.json(fileResponse);
         });
     });
-});
+};
 
-module.exports = driveRouter;
+module.exports = driveController;
