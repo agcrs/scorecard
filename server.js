@@ -55,5 +55,6 @@ app.get('*', function(req, res) {
 
 // START THE SERVER
 // ==================================================================
-app.listen(config.port);
+module.exports = app.listen(config.port); //The module exports is needed to
+//close the server after each test.
 console.log('Server listening on port: ' + config.port);

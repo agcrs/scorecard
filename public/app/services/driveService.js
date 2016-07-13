@@ -33,7 +33,7 @@ angular.module('driveService', [])
         res.zip = 0;
         res.various = 0;
 
-        for (var i = 0; i < data.files.length; i++) {
+        /*for (var i = 0; i < data.files.length; i++) {
             var file = data.files[i];
             if (file.mimeType == 'application/vnd.google-apps.document') res.gDocs++;
             else if (file.mimeType == 'application/vnd.google-apps.drawing') res.gDrawings++;
@@ -51,7 +51,26 @@ angular.module('driveService', [])
             else if (file.mimeType == 'application/zip') res.zip++;
             else if (file.mimeType == 'multipart/x-zip') res.zip++;
             else res.various++;
-        }
+        }*/
+
+        data.files.forEach(function (file, index, array) {
+            if (file.mimeType == 'application/vnd.google-apps.document') res.gDocs++;
+            else if (file.mimeType == 'application/vnd.google-apps.drawing') res.gDrawings++;
+            else if (file.mimeType == 'application/vnd.google-apps.form') res.gForms++;
+            else if (file.mimeType == 'application/vnd.google-apps.map') res.gMaps++;
+            else if (file.mimeType == 'application/vnd.google-apps.presentation') res.gSlides++;
+            else if (file.mimeType == 'application/vnd.google-apps.spreadsheet') res.gSheets++;
+            else if (file.mimeType == 'application/pdf') res.pdf++;
+            else if (file.mimeType == 'image/png') res.img++;
+            else if (file.mimeType == 'image/jpeg') res.img++;
+            else if (file.mimeType == 'image/pjpeg') res.img++;
+            else if (file.mimeType == 'image/jpg') res.img++;
+            else if (file.mimeType == 'application/x-compressed') res.zip++;
+            else if (file.mimeType == 'application/x-zip-compressed') res.zip++;
+            else if (file.mimeType == 'application/zip') res.zip++;
+            else if (file.mimeType == 'multipart/x-zip') res.zip++;
+            else res.various++;
+        });
 
         return res;
     };

@@ -14,7 +14,12 @@ var UserSchema = new Schema({
             id_token        : {type: String},
             refresh_token   : {type: String},
             expiry_date     : {type: String}
-        }
+        },
+        changes: {
+            startPageToken  : {type: String},
+            nextPageToken   : {type: String}
+        },
+        driveChanges: [{type: Schema.Types.ObjectId, ref: 'DriveChange'}]
     }
 });
 

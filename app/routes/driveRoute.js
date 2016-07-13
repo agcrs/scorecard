@@ -17,5 +17,7 @@ driveRouter.use(authController.checkPrincipal);
 //-----------------ROUTES----------------//
 driveRouter.get('/profileInfo', driveController.getProfileInfo);
 driveRouter.get('/fileInfo', driveController.getFileInfo);
+driveRouter.get('/changesStartPageToken', driveController.getChangesStartPageToken);
+driveRouter.get('/fetchChanges'. driveController.fetchChangesAndSave);
 
 module.exports = driveRouter;
